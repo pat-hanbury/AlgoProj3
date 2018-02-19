@@ -3,7 +3,7 @@
 //Project3a
 //class grid.cpp
 
-#include grid.h
+#include "grid.h"
 #include "wordList.h"
 
 //function to rturn the numberofrows
@@ -46,11 +46,11 @@ void grid::readGrid(std::string filename){
 	//for statement that iterates through the rows
 	for (int i=0; i < NumberOfRows; i++){
 		//for statement that iterates through the columns
-		for (int i=0; i < numColumns; i++){
+		for (int i=0; i < NumberOfColumns; i++){
 			//sstores the letter
 			fin >> storeLetter;
 			//increases the size of the vector that stores the row
-			storeRow.push_back(storeRow);
+			storeRow.push_back(storeLetter);
 			}
 			//stores the entire row into letters
 			letters.push_back(storeRow);
