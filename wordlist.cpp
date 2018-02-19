@@ -5,26 +5,28 @@
 
 #include "wordList.h"
 #include "grid.h"
+#include <cmath>
 
 //Function that reads the words from the wordlist file
 void wordList::readWords(){ 
 	//Ifstream variable to read files
-	std::ifstream fin; 
+	std::ifstream fin;
 	//String variable to store the string from the read file
 	std::string store; 
 	//Open the the text file
 	fin.open("wordlist.txt");
-	
 	//If statement that checks if the file is there or not
 	//Outputs a message if file is not there
-	if (!fin){ 
+
+    if (!fin){
 		std::cout << "No file";
 		system("pause");
 		exit(0);
 	}
+
 	
 	//While statement that reads the wordlist.txt file.
-	while (fin){ 
+	while (fin){
 		//Stores the string from wordlist.txt file into the string variable
 		fin >> store; 
 		//Stores the current word in the string variable
@@ -69,14 +71,20 @@ void wordList::insertionSort(){
 	//for loop that iterates over the outside
 	for (int i=1; i <list.size(); i++){
 		//Insert the element at sorted position
-		std::string key = list.at(i); 
+
+        std::cout<< "list size is: " << list.size() << std::endl;
+
+        std::string key = list[i];
 		//Initializes the length 
 		int j = i-1; 
 		
 		//While loop to check the inserted element against the other elements
-		while (j >= && list.at(j) > key) 
+		while (j >= 0 && list.at(j) > key)
 		{
-			//Moves the sorted elemenets
+            std::cout<<"loop i = " << i;
+            std::cout<<"             j = " << j << std::endl;
+
+                     //Moves the sorted elements
 			list.at(j+1) = list.at(j); 
 			j--; 
 		}
