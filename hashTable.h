@@ -8,6 +8,7 @@
 
 #include <functional>
 #include <vector>
+#include <math.h>
 
 //hashTable template declarataion
 template <typename T> class hashTable{ 

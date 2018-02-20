@@ -69,22 +69,26 @@ bool wordList::binarySearchAux(std::string &key, int left, int right) {
 
 //Function that implements InsertionSort
 void wordList::insertionSort(){
-	
+
+	std::cout<< "list size is: " << list.size() << std::endl;
+
+	//for finishing the for loop
+	int maxIteration = list.size();
+
 	//for loop that iterates over the outside
-	for (int i=1; i <list.size(); i++){
+	for (int i=1; i < maxIteration; i++){
 		//Insert the element at sorted position
 
-        std::cout<< "list size is: " << list.size() << std::endl;
+		//output the index number (since user will be not be able to run program fully
+		std::cout<<"loop i = " << i << std::endl;
 
-        std::string key = list[i];
-		//Initializes the length 
+        std::string key = list.at(i);
+		//Initializes the length
 		int j = i-1; 
 		
 		//While loop to check the inserted element against the other elements
 		while (j >= 0 && list.at(j) > key)
 		{
-            std::cout<<"loop i = " << i;
-            std::cout<<"             j = " << j << std::endl;
 
                      //Moves the sorted elements
 			list.at(j+1) = list.at(j); 
@@ -172,7 +176,7 @@ void wordList::merge(int p, int q, int r){
 //void function heap sort
 void wordList::heapSort(){
 	//initializes a new heap object
-	heap<std:string> arr;
+	heap<std::string> arr;
 	//calls the function initializemaxheap to pass the list
 	arr.initializeMaxHeap(list);
 	//calls the function from heap 

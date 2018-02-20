@@ -244,17 +244,19 @@ int main(){
 	std::cout << "For this program, the search method is called 5 times, each for the different sort methods" << std::endl;
 	std::cout << "Thus, please enter the name of the grid file for all 5 matches" << std::endl;
 	//Search functions
-	//Insertion sort
-	search(1);
+
 	//Merge sort
-	search(2);
+	//search(2);
 	//Quick sort
-	search(3);
+	//search(3);
 	//heap sort
-	search(4);
+	//search(4);
 	//hash table
-	search(5);
-	//Tells user to check the file
+	//search(5);
+    //Insertion sort
+    search(1);
+
+    //Tells user to check the file
 	std::cout << "Please check the sortList.txt file" << std::endl;
 		
 	system ("pause");

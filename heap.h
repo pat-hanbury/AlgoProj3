@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 //heap declaration
 template <typename T> class heap{
