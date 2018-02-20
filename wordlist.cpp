@@ -70,8 +70,6 @@ bool wordList::binarySearchAux(std::string &key, int left, int right) {
 //Function that implements InsertionSort
 void wordList::insertionSort(){
 
-	std::cout<< "list size is: " << list.size() << std::endl;
-
 	//for finishing the for loop
 	int maxIteration = list.size();
 
@@ -80,7 +78,6 @@ void wordList::insertionSort(){
 		//Insert the element at sorted position
 
 		//output the index number (since user will be not be able to run program fully
-		std::cout<<"loop i = " << i << std::endl;
 
         std::string key = list.at(i);
 		//Initializes the length

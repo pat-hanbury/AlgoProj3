@@ -246,15 +246,16 @@ int main(){
 	//Search functions
 
 	//Merge sort
-	//search(2);
+	search(2);
 	//Quick sort
-	//search(3);
+	search(3);
 	//heap sort
-	//search(4);
+	search(4);
 	//hash table
-	//search(5);
-    //Insertion sort
+	search(5);
+    //Insertion sort (placed at the end because it's the slowest)
     search(1);
+
 
     //Tells user to check the file
 	std::cout << "Please check the sortList.txt file" << std::endl;
