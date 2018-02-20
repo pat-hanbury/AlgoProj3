@@ -4,8 +4,22 @@
 //main file
 
 #include "grid.h"
-#include "wordlist.h"
+#include "wordList.h"
 #include <time.h>
+#include "heap.h"
+#include "hashTable.h"
+
+//newly overloaded function that takes a wordlist and a string
+//returns a binary search function 
+bool compareSearch(wordList &w, std::string &compare){ 
+	return w.binarySearch(compare);
+}
+
+//newly overloaded function that takes in a hash table and a string 
+//returns the inlist function from hash table
+bool compareSearch(hashTable<std::string> &w, std::string &compare){
+	return w.inList(compare);
+}
 
 //Overloaded output operator to print the word list
 std::ofstream& operator << (std::ofstream &out, wordList &list){
@@ -18,8 +32,22 @@ std::ofstream& operator << (std::ofstream &out, wordList &list){
 	return out;
 }
 
+
+//for part 3b, newly implemented operator
+//overloaded output operator to print heap
+std::ofstream& operator << (std::ofstream &out, heap<std::string> &list){
+	
+	//for statement that iterates from start of heap list to last 
+	for (int i =0; i<list.heapSize; i++) 
+		//Implementation of the at function of the vector class
+		out << list.getItem(i) << std::endl; 
+	return out;
+}
+
 //Global function findMatches() that is passsed the word list and the grid as the parameter
-void findMatches(wordList &words, grid &searchGrid){
+// for part 3b we added a function that takes in an X type object so it can either use hash tables or wordlist as first parameters
+template <typename X>
+void findMatches(X &words, grid &searchGrid){
 	//initialized variable to store strings
 	std::string compare;
 	//object declaration that will store the strings found in the grid
@@ -103,7 +131,7 @@ void findMatches(wordList &words, grid &searchGrid){
 							y = searchGrid.getColumns() - 1;						
 					}
 					//If statement that searches for the word
-					if (words.binarySearch(compare))
+					if (compareSearch(words,compare))
 						//If a string was found, then it will be added to findstrings
 						foundStrings.list.push_back(compare);
 				}
@@ -130,6 +158,13 @@ void search(int sortingMethod){
 	//Initializes time variables
 	clock_t start, sort, find;
 	
+	
+	//newly initialized heaps
+	heap<std::string> list;
+	//newly initialized hashtables
+	hashTable<std::string> searchTable;
+	
+	
 	//Member function readWords reads all the words in the textfile and words it in newList
 	newList.readWords();
 	//user input
@@ -142,41 +177,58 @@ void search(int sortingMethod){
 	//Initiazlies the clock
 	start = clock();
 	
+	
+	//newly added Heap and hash table methods for project 3b
 	//These set of switch cases decides the sorting method by invoking the correct member function
-	//each method tells user which sorting method isbeing used
+	//each method tells user which sorting method is being used
+	//additionally for each case, it ends the sort and find timer within the case statement. and invokves the findmatches function within
 	switch (sortingMethod)
 	{
 		//Insertion Sort
 		case 1:
 			std::cout << "Searching via insertion sort" <<std::endl; 
 			newList.insertionSort();
+			sort = clock();
+			findMatches(newList, newGrid);
+			find = clock();
 			break;
+		//merge sort
 		case 2:
 			std::cout << "Searching via merge sort" <<std::endl;
 			newList.mergeSort(0, newList.list.size() - 1);
+			sort = clock();
+			findMatches(newList, newGrid);
+			find = clock();
 			break;
+		//quick sort
 		case 3:
 			std::cout << "Searching via quick sort" <<std::endl;
 			newList.quickSort(0, newList.list.size() - 1);
+			sort = clock();
+			findMatches(newList, newGrid);
+			find = clock();
+			break;
+		//heap sort
+		case 4:
+			std::cout << "Searching via heap sort" <<std::endl;
+			newList.heapSort();
+			sort = clock();
+			findMatches(newList, newGrid);
+			find = clock();
+			break;
+		//hash table
+		case 5:
+			std::cout << "Searching in hash table" <<std::endl;
+			sort = start;
+			searchTable.initializeHashTable(newList.list);
+			findMatches(searchTable, newGrid);
+			find = clock();
 			break;
 		default:
 			break;
 	}	
 	
-	//End sort clock 
-	sort = clock();
-	findMatches(newList, newGrid);
-	//Ends finding clock
-	find = clock();
-	//ofstream variable to print the list of sorted words
-	std::ofstream fout;
-	//Opens a new sortList.txt file
-	fout.open("sortList.txt");
-	//Prints the sorted list
-	fout << newList;
-	//Closes the text file
-	fout.close();
-	
+
 	//Displays the time it took for the CPU to sort the words, find the words, and total time.
 	//Displays it per clocks per sec or in milliseconds.
 	std::cout << "It took sorting time of "<< (sort-start) * 1000 / CLOCKS_PER_SEC <<"msecs" << std::endl;
@@ -184,8 +236,13 @@ void search(int sortingMethod){
 	std::cout << "It took total time of "<< (find-start) * 1000 / CLOCKS_PER_SEC <<"msecs" << std::endl;	
 }
 
+
+
+//newly added lines for project3b for hash table and heap sort
 //main function
 int main(){
+	std::cout << "For this program, the search method is called 5 times, each for the different sort methods" << std::endl;
+	std::cout << "Thus, please enter the name of the grid file for all 5 matches" << std::endl;
 	//Search functions
 	//Insertion sort
 	search(1);
@@ -193,6 +250,10 @@ int main(){
 	search(2);
 	//Quick sort
 	search(3);
+	//heap sort
+	search(4);
+	//hash table
+	search(5);
 	//Tells user to check the file
 	std::cout << "Please check the sortList.txt file" << std::endl;
 		
