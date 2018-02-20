@@ -6,6 +6,8 @@
 #include "wordList.h"
 #include "grid.h"
 #include <cmath>
+#include "hashTable.h"
+#include "heap.h"
 
 //Function that reads the words from the wordlist file
 void wordList::readWords(){ 
@@ -165,6 +167,22 @@ void wordList::merge(int p, int q, int r){
 			j++; 
 		}
 	}
+}
+
+//void function heap sort
+void wordList::heapSort(){
+	//initializes a new heap object
+	heap<std:string> arr;
+	//calls the function initializemaxheap to pass the list
+	arr.initializeMaxHeap(list);
+	//calls the function from heap 
+	arr.heapSort();
+	//for statement that iterates over the array
+	for (int i=0; i<list.size();i++){
+		//sets items of the list equal to the heap
+		list.at(i) = arr.getItem(i);
+	}
+	
 }
 
 //partition function

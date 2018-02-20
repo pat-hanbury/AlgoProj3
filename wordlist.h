@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
+#include "hashTable.h"
 
 //class wordList declaration
 class wordList {
@@ -35,6 +36,9 @@ public:
 	void insertionSort(); 
 	void quickSort(int, int);
 	void merge(int, int , int); 
+	
+	//newly added
+	void heapSort();
 };
 
 #endif
